@@ -1,11 +1,14 @@
 package com.example.pacio_000.picswapper2;
 
 import android.annotation.TargetApi;
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.support.design.widget.CollapsingToolbarLayout;
 
@@ -56,12 +59,18 @@ public class Kolejny extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         cont=getApplicationContext();
         super.onCreate(savedInstanceState);
-
+        //setContentView(R.layout.activity_kolejny);
 
 
         setContentView(R.layout.activity_kolejny);
+      //  ActionBar bar = getActionBar();
+       // bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#d3d3d3")));
+       // TextView text=(TextView) findViewById(R.id.tv_text);
+      //  Typeface face= Typeface.createFromAsset(getAssets(),"fonts/Advent_Pro/AdventPro-Medium.ttf");
+        //text.setTypeface(face);
+        //text.setTextColor(Color.BLACK);
         Toolbar toolbar=(Toolbar) findViewById(R.id.toolbar);
-        toolbar.setBackgroundColor(Color.BLACK);
+        toolbar.setBackgroundColor(Color.GRAY);
         setSupportActionBar(toolbar);
         ViewPager viewPager=(ViewPager) findViewById(R.id.viewpager);
         PagerAdapter pagerAdapter =new PagerAdapter(getSupportFragmentManager(),Kolejny.this);
@@ -89,6 +98,15 @@ public class Kolejny extends AppCompatActivity {
         pol =new Polaczenie2(id);
         pol.execute();
         System.out.println("Polaczono2");
+        View lol=findViewById(R.id.card_view);
+      /*  lol.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Log.d("dupa","Klik");
+            }
+
+        });
+        */
+        /*
         /*
         list.setNestedScrollingEnabled(false);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -166,7 +184,7 @@ public class Kolejny extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+        Log.d("dupa","Klik"+id);
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;

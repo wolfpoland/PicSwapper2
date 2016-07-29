@@ -2,6 +2,7 @@ package com.example.pacio_000.picswapper2;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             super(itemView);
             mCardView=(CardView) itemView.findViewById(R.id.card_view);
             mTextView=(TextView) itemView.findViewById(R.id.tv_text);
+            itemView.setOnClickListener(new View.OnClickListener(){
+                public void onClick(View v){
+                    Log.d("dupa","Klik");
+                }
+
+            });
         }
     }
     public MyAdapter(String[] mDataSet){

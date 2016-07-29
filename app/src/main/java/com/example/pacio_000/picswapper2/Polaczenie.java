@@ -39,12 +39,13 @@ public class Polaczenie extends AsyncTask<Void, Void, Uzytkownik> {
     protected Uzytkownik doInBackground(Void... params) {
         switch (wybor) {
             case 1: {
-                String url = "http://192.168.1.106:8080/myapp/?login=" + login + "&haslo=" + haslo;
+                String url = "http://10.0.1.104:8080/Uzytkowniks/logo?mail=" + login + "&haslo=" + haslo;
                 Log.d("dupa", url);
                 ArrayList<String> lista = new ArrayList<String>();
                 try {
                     URL lacz = new URL(url);
                     URLConnection pol = lacz.openConnection();
+                   //pol.setConnectTimeout();
                     InputStream inner = pol.getInputStream();
                     BufferedReader in = new BufferedReader(new InputStreamReader(inner));
                     String line;
@@ -77,6 +78,7 @@ public class Polaczenie extends AsyncTask<Void, Void, Uzytkownik> {
             }
             case 2: {
                 try {
+                    //String url = "http://192.168.1.106:8080/myapp/pliki/?id=" + uz.getID();
                     String url = "http://192.168.1.106:8080/myapp/pliki/?id=" + uz.getID();
                     Log.d("dupa5","kolejne: "+url);
                     ArrayList<String> lista = new ArrayList<>();

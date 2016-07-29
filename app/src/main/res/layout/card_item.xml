@@ -10,9 +10,11 @@
         android:layout_margin="10dp"
         android:layout_height="62dp"
         card_view:cardCornerRadius="4dp"
+        android:background="#B3B2B2"
         card_view:elevation="14dp">
 
         <RelativeLayout
+            android:background="#B3B2B2"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -36,7 +38,7 @@
                 android:id="@+id/tv_blah"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="blah blah blah......"
+                android:text="Pobierz"
                 android:layout_below="@+id/tv_text"
                 android:layout_toRightOf="@+id/iv_image"
                 android:layout_toEndOf="@+id/iv_image">
