@@ -35,19 +35,20 @@ public class Polaczenie2 extends AsyncTask<Void, Void, Uzytkownik> {
         this.haslo=haslo;
         wybor=1;
     }
-    public Polaczenie2(int id1){
+    public Polaczenie2(int id1, Uzytkownik uz){
         this.id1=id1;
         wybor=2;
         mozna=false;
+        this.uz=uz;
         Log.d("dupa",Integer.toString(wybor));
     }
     @Override
     protected Uzytkownik doInBackground(Void... params) {
-        Log.d("dupa","W metodzie w kolejny");
+        Log.d("dupa","Z metody kolejny w polaczenie 2");
         switch (wybor) {
 
             case 1: {
-                String url = "http://192.168.1.106:8080/myapp/?login=" + login + "&haslo=" + haslo;
+                String url = "http://192.168.1.104:8080/myapp/?login=" + login + "&haslo=" + haslo;
                 Log.d("dupa", url);
                 ArrayList<Linki> lista = new ArrayList<Linki>();
                 try {
@@ -62,7 +63,7 @@ public class Polaczenie2 extends AsyncTask<Void, Void, Uzytkownik> {
                             // JSONArray ja = ob.getJSONArray()
                             // for (int n = 0; n < ja.length(); n++) {
                             //   JSONObject jo = (JSONObject) ja.get(n);
-                            lista.add (new Linki(ob.getString("adres")));
+                           // lista.add (new Linki(ob.getString("adres")));
                             //Uzytkownik test=new Uzytkownik();
                             uz = new Uzytkownik(Integer.parseInt(ob.getString("id")), ob.getString("imie"), ob.getString("nazwisko"), ob.getString("mail"), ob.getString("haslo"));
                             // }
@@ -84,9 +85,9 @@ public class Polaczenie2 extends AsyncTask<Void, Void, Uzytkownik> {
                 break;
             }
             case 2: {
-                Log.d("dupa","W case2");
+                Log.d("dupa","W case2 w polaczenie2");
                 try {
-                    String url = "http://192.168.1.106:8080/myapp/pliki/?id=" + id1;
+                    String url = "http://10.0.1.149:8080/Uzytkowniks/pliki?id=" + id1;
                     Log.d("dupa5","kolejne: "+url);
                     lista = new ArrayList<Linki>();
                     URL lacz = new URL(url);
@@ -106,7 +107,7 @@ public class Polaczenie2 extends AsyncTask<Void, Void, Uzytkownik> {
                                 Log.d("dupa ", "krece: "+n);
                                 Log.d("dupa","Wyswietlam napis: "+jo.get("adres"));
                                 //Log.d("dupa","Wyswietlam napis: "+jo.getString("adres"));
-                                lista.add (new Linki( jo.getString("adres")));
+                                lista.add (new Linki( jo.getString("adres"),uz));
                                 //Uzytkownik test=new Uzytkownik();
                                 //   uz = new Uzytkownik(Integer.parseInt(ob.getString("id")), ob.getString("imie"), ob.getString("nazwisko"), ob.getString("mail"), ob.getString("haslo"));
                             }

@@ -39,7 +39,7 @@ public class Polaczenie extends AsyncTask<Void, Void, Uzytkownik> {
     protected Uzytkownik doInBackground(Void... params) {
         switch (wybor) {
             case 1: {
-                String url = "http://10.0.1.104:8080/Uzytkowniks/logo?mail=" + login + "&haslo=" + haslo;
+                String url = "http://10.0.1.149:8080/Uzytkowniks/logo?mail=" + login + "&haslo=" + haslo;
                 Log.d("dupa", url);
                 ArrayList<String> lista = new ArrayList<String>();
                 try {

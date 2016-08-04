@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public class PlikInfo implements Serializable{
+	private static final long serialVersionUID = 9103658319690261655L;
 	private String nazwa;
 	private int id;
 	private int idSerwera;

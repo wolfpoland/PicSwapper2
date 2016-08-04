@@ -2,6 +2,7 @@ package com.example.pacio_000.picswapper2;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.util.Log;
 
 import java.io.BufferedOutputStream;
@@ -14,7 +15,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OptionalDataException;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.StreamCorruptedException;
+import java.io.Writer;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -27,6 +30,7 @@ public class Polaczenie3 extends AsyncTask<Void, Void, Uzytkownik> {
     private Context cont;
     private Kolejny kolejny;
     private boolean dzialanie;
+    private String sciezka;
     public Polaczenie3(String adres, Uzytkownik uz, Context cont) {
         this.adres = adres;
         this.uz = uz;
@@ -40,7 +44,7 @@ public class Polaczenie3 extends AsyncTask<Void, Void, Uzytkownik> {
         Log.d("dupa", "Adres w onClick: " + adres);
         //uz=Kolejny.getUzytkownik();
         try {
-            Socket sock = new Socket("192.168.1.106", 8888);
+            Socket sock = new Socket("10.0.1.149", 8888);
             Log.d("dupa", "Poszlo");
             InputStream in = sock.getInputStream();
             Log.d("dupa", "in poszedl");
@@ -70,15 +74,23 @@ public class Polaczenie3 extends AsyncTask<Void, Void, Uzytkownik> {
             if (plik.isPlikor()) {
                 // String combo=PanelGlowny.getjComboBox1().getSelectedItem().toString();
                 File plik2 = new File(cont.getFilesDir(), plik.getNazwa());
+               // File plik2=new File(Environment.getExternalStorageDirectory().getAbsoluteFile(),plik.getNazwa());
                 System.out.println("Sciezka: " + plik2.getAbsolutePath());
                 if (!plik2.exists()) {
-                    plik2.createNewFile();
+                    System.out.println("Plik nie istnieje wiec go tworze");
+                 plik2.createNewFile();
+                } else if (plik2.exists()) {
+                    System.out.println("Plik istnieje");
                 }
-                FileOutputStream fos = new FileOutputStream(plik2);
-                BufferedOutputStream bos = new BufferedOutputStream(fos);
-                bos.write(plik.getTablica());
-                bos.close();
+               FileOutputStream fos = new FileOutputStream(plik2);
+               // FileOutputStream fos=cont.openFileOutput(plik.getNazwa(),Context.MODE_PRIVATE);
+              //  BufferedOutputStream bos = new BufferedOutputStream(fos);
+               // Writer outer=new OutputStreamWriter(fos);
+                fos.write(plik.getTablica());
+              //  bos.close();
                 fos.close();
+                sciezka=plik2.getAbsolutePath();
+                System.out.println("Koniec polaczenia3");
             }
 
             ois.close();
@@ -106,6 +118,9 @@ public class Polaczenie3 extends AsyncTask<Void, Void, Uzytkownik> {
     }
     public boolean getDzialanie(){
         return dzialanie;
+    }
+    public String getSciezka(){
+        return sciezka;
     }
 
 }

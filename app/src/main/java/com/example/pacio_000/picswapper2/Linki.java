@@ -1,10 +1,14 @@
 package com.example.pacio_000.picswapper2;
 
-public class Linki {
+import java.util.List;
 
+public class Linki {
+    public static List<Linki> lista;
     private String adres;
-    public Linki(String adres){
+    private Uzytkownik uz;
+    public Linki(String adres,Uzytkownik uz){
         this.adres=adres;
+        this.uz=uz;
     }
     public Linki(){ }
     public String getAdres() {
@@ -12,6 +16,9 @@ public class Linki {
     }
     public void setAdres(String adres) {
         this.adres = adres;
+    }
+    public Uzytkownik getUzytkownik(){
+        return uz;
     }
 
 }

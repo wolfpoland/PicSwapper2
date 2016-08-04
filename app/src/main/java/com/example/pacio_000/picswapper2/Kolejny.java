@@ -2,11 +2,13 @@ package com.example.pacio_000.picswapper2;
 
 import android.annotation.TargetApi;
 import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Path;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -21,12 +23,15 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.graphics.Palette;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -53,7 +58,11 @@ public class Kolejny extends AppCompatActivity {
     private static List<Linki> lista=null;
     private boolean mozna=false;
     private boolean dzialanie=false;
+    private BlankFragment fragment;
     private CollapsingToolbarLayout col;
+    private boolean mozena=false;
+    public int wysokosc;
+    public CardView card;
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,17 +97,55 @@ public class Kolejny extends AppCompatActivity {
         //ImageView view =(ImageView) findViewById(R.id.header);
         //Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher);
         //Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
-
-
+      /*   card=(CardView) findViewById(R.id.card_view);
+        final Activity activity=(Activity) this;
+        card.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener(){
+            @Override
+            public boolean onPreDraw(){
+                card.getViewTreeObserver().removeOnPreDrawListener(this);
+                wysokosc=card.getHeight();
+                ViewGroup.LayoutParams layoutParams=card.getLayoutParams();
+                layoutParams.height=(int) activity.getResources().getDimension(R.dimen.)
+            }
+        });
+*/
        // list=(ListView) findViewById(R.id.listView);
         Intent i =getIntent();
         final Uzytkownik uz= (Uzytkownik) i.getSerializableExtra("papa");
         int id=uz.getID();
         Log.d("dupa","W kolejny: "+Integer.toString(id));
-        pol =new Polaczenie2(id);
+        pol =new Polaczenie2(id,uz);
         pol.execute();
-        System.out.println("Polaczono2");
+        Log.d("dupa","przed petla");
+        do{
+           // Log.d("dupa","krece");
+            if(pol.getMozna()==true) {
+                System.out.println("Polaczono2");
+                List<Linki> linkio = pol.getLinki();
+                Linki.lista=linkio;
+                getCont();
+                System.out.println("Rozmiar: "+linkio.size());
+              /*  String[] etykiety = new String[linkio.size()+1];
+                for (int s = 0; s < linkio.size(); s++) {
+                    File plik=new File(linkio.get(s).getAdres());
+                    etykiety[s] = plik.getName();
+
+                    System.out.println("dodano do tablicy: "+ plik.getName());
+                }
+
+                Etykiety.etykeiety=etykiety;*/
+
+                Log.d("dupa", "Wypisuje:");
+                for (int c = 0; c < linkio.size(); c++) {
+                    Log.d("dupa", linkio.get(c).getAdres());
+                }
+                mozena=true;
+                Log.d("dupa","Mozena true");
+            }
+        }while(pol.getMozna()==false);
+
         View lol=findViewById(R.id.card_view);
+
       /*  lol.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 Log.d("dupa","Klik");
@@ -169,7 +216,10 @@ public class Kolejny extends AppCompatActivity {
 */
     }
 
+    public void getCont(){
+        Etykiety.cont=this;
 
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -229,6 +279,14 @@ public class Kolejny extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
+            while (mozena == false) {
+              //  System.out.println("Krece");
+                if(mozena==true){
+                    Log.d("dupa", "Zaszlo true");
+                    return new BlankFragment();
+
+                }
+            }
             return new BlankFragment();
         }
 

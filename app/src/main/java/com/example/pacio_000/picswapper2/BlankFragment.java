@@ -9,12 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 /**
  * Created by pacio_000 on 25.06.2016.
  */
 public class BlankFragment extends Fragment {
+    private List<Linki> linki;
     public BlankFragment(){
-
+        getEtykiety();
+    }
+    private void getEtykiety(){
+        linki=Linki.lista;
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -26,7 +32,7 @@ public class BlankFragment extends Fragment {
         View rootView=inflater.inflate(R.layout.fragment_blank,container,false);
         RecyclerView rv=(RecyclerView) rootView.findViewById(R.id.rv_recycler_view);
         rv.setHasFixedSize(true);
-        MyAdapter adapter=new MyAdapter(new String[]{"dupa","test2","test3","test4"});
+        MyAdapter adapter=new MyAdapter(linki);
         rv.setAdapter(adapter);
 
 
